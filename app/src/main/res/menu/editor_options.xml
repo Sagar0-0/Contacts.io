@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/save_contact"
+        android:title="Save"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="always"/>
+
+    <item android:title="More options"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        app:showAsAction="always">
+        <menu>
+            <item android:id="@+id/share_contact"
+                android:title="Share Contact"
+                android:icon="@drawable/ic_share"/>
+            <item android:id="@+id/call_this_contact"
+                android:title="Call"
+                android:icon="@drawable/ic_call"/>
+            <item android:id="@+id/message_this_contact"
+                android:title="Send SMS"
+                android:icon="@drawable/ic_message"/>
+            <item android:id="@+id/delete_this_contact"
+                android:title="Delete"
+                android:icon="@drawable/ic_delete"/>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/drawable/gmail.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/drawable/ic_exit.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/drawable/ic_save.xml" value="0.22" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/drawable/twitter.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/layout-land/activity_main.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/layout/activity_editor.xml" value="0.1685185185185185" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/layout/list_item.xml" value="0.22" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/menu/editor_options.xml" value="0.2" />
+        <entry key="..\:/Users/sagar/AndroidStudioProjects/Contactsio/app/src/main/res/menu/options_menu.xml" value="0.13518518518518519" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

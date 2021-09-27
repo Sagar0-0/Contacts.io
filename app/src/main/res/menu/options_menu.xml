@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="More options"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        app:showAsAction="always">
+        <menu>
+            <item android:id="@+id/dummy_data"
+                android:title="Add Dummy Contact"
+                android:icon="@drawable/ic_profile"/>
+            <item android:id="@+id/delete_all_contacts"
+                android:title="Delete all contacts"
+                android:icon="@drawable/ic_delete"/>
+            <item android:id="@+id/share_app"
+                android:title="Share Contacts.io"
+                android:icon="@drawable/ic_share"/>
+            <item android:id="@+id/reach_us"
+                android:title="Reach us"
+                android:icon="@drawable/ic_info">
+                <menu>
+                    <item android:id="@+id/gmail"
+                        android:icon="@drawable/gmail"
+                        android:title="G-MAIL"/>
+                    <item android:id="@+id/github"
+                        android:icon="@drawable/github"
+                        android:title="GITHUB"/>
+                    <item android:id="@+id/twitter"
+                        android:icon="@drawable/twitter"
+                        android:title="TWITTER"/>
+                    <item android:id="@+id/linkedin"
+                        android:icon="@drawable/linkedin"
+                        android:title="LINKEDIN"/>
+                    <item android:id="@+id/instagram"
+                        android:icon="@drawable/instagram"
+                        android:title="INSTAGRAM"/>
+                </menu>
+            </item>
+            <item android:id="@+id/exit"
+                android:title="Exit"
+                android:icon="@drawable/ic_exit"
+                app:showAsAction="never"/>
+        </menu>
+
+    </item>
+
+</menu>
