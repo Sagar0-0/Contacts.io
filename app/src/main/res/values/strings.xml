@@ -1,4 +1,11 @@
 <resources>
+
+    <!-- Toast message in editor when current contact was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_contact_successful">Contact deleted</string>
+
+    <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_contact_failed">Error with deleting contact</string>
+
     <string name="app_name">Contacts.io</string>
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
@@ -6,6 +13,15 @@
     <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
     <string name="discard">Discard</string>
 
-    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <!-- Dialog button text for the option to keep editing the current contact [CHAR LIMIT=20] -->
     <string name="keep_editing">Keep Editing</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current contact [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this contact?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current contact [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current contact [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
 </resources>

@@ -18,21 +18,23 @@
                 android:title="Reach us"
                 android:icon="@drawable/ic_info">
                 <menu>
-                    <item android:id="@+id/gmail"
-                        android:icon="@drawable/gmail"
-                        android:title="G-MAIL"/>
-                    <item android:id="@+id/github"
-                        android:icon="@drawable/github"
-                        android:title="GITHUB"/>
-                    <item android:id="@+id/twitter"
-                        android:icon="@drawable/twitter"
-                        android:title="TWITTER"/>
-                    <item android:id="@+id/linkedin"
-                        android:icon="@drawable/linkedin"
-                        android:title="LINKEDIN"/>
-                    <item android:id="@+id/instagram"
-                        android:icon="@drawable/instagram"
-                        android:title="INSTAGRAM"/>
+                    <group>
+                        <item android:id="@+id/gmail"
+                            android:orderInCategory="1"
+                            android:title="G-MAIL"/>
+                        <item android:id="@+id/github"
+                            android:orderInCategory="2"
+                            android:title="GITHUB"/>
+                        <item android:id="@+id/twitter"
+                            android:orderInCategory="3"
+                            android:title="TWITTER"/>
+                        <item android:id="@+id/linkedin"
+                            android:orderInCategory="4"
+                            android:title="LINKEDIN"/>
+                        <item android:id="@+id/instagram"
+                            android:orderInCategory="5"
+                            android:title="INSTAGRAM"/>
+                    </group>
                 </menu>
             </item>
             <item android:id="@+id/exit"

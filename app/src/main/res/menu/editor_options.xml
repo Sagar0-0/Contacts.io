@@ -8,6 +8,7 @@
         app:showAsAction="always"/>
 
     <item android:title="More options"
+        android:id="@+id/more_editing_options"
         android:icon="@drawable/ic_baseline_more_vert_24"
         app:showAsAction="always">
         <menu>

@@ -2,6 +2,7 @@ package com.example.android.contactsio;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -9,10 +10,12 @@ import androidx.loader.content.Loader;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,6 +99,54 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Delete all Contacts?");
+        builder.setPositiveButton(R.string.delete, (dialog, id) -> {
+            deleteAll();
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            if (dialog != null) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deleteAll() {
+        int rowsDeleted = getContentResolver().delete(Contract.ContactEntry.CONTENT_URI, null, null);
+        if(rowsDeleted>-1){
+            Toast.makeText(this,"Contacts Deleted Successfully",
+                    Toast.LENGTH_SHORT).show();
+        }
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from contact database");
+    }
+    private void exitactivitydialog(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("Do you really want to exit ?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog= builder.create();
+        alertDialog.show();
+    }
+
+
+
+
+
+
 
 
 
@@ -117,8 +168,44 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.dummy_data){
-            insertDummyData();
+        switch (item.getItemId()){
+            case R.id.dummy_data:
+                insertDummyData();
+                break;
+            case R.id.delete_all_contacts:
+                showDeleteConfirmationDialog();
+                break;
+            case R.id.exit:
+                exitactivitydialog();
+                break;
+            case R.id.gmail:
+                Intent mailIntent=new Intent(Intent.ACTION_SENDTO);
+                mailIntent.setData(Uri.parse("mailto:"));
+                mailIntent.putExtra(Intent.EXTRA_EMAIL,new String[]{"sagar.0dev@gmail.com"});
+                if(mailIntent.resolveActivity(getPackageManager())!= null){
+                    startActivity(mailIntent);
+                }
+                break;
+            case R.id.github:
+                String github="https://github.com/Sagar0-0";
+                Intent githubIntent=new Intent(Intent.ACTION_VIEW, Uri.parse(github));
+                startActivity(githubIntent);
+                break;
+            case R.id.twitter:
+                String twitter="https://twitter.com/sagar0_o";
+                Intent twitterIntent=new Intent(Intent.ACTION_VIEW, Uri.parse(twitter));
+                startActivity(twitterIntent);
+                break;
+            case R.id.linkedin:
+                String linkedin="https://www.linkedin.com/in/sagar-malhotra-7021b0204/";
+                Intent linkedinIntent=new Intent(Intent.ACTION_VIEW, Uri.parse(linkedin));
+                startActivity(linkedinIntent);
+                break;
+            case R.id.instagram:
+                String insta="https://www.instagram.com/_sagar_malhotra_/";
+                Intent instaIntent=new Intent(Intent.ACTION_VIEW, Uri.parse(insta));
+                startActivity(instaIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

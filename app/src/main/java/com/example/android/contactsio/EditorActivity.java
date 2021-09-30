@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.android.contactsio.data.Contract;
 
@@ -29,7 +30,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private boolean mHasChanged = false;
 
-    private View.OnTouchListener mTouchListener;
+    private final View.OnTouchListener mTouchListener;
     {
         mTouchListener = (v, event) -> {
             mHasChanged = true;
@@ -41,6 +42,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
 
 
         Intent intent=getIntent();
@@ -95,6 +97,51 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
 
 
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete,(dialog, id) -> {
+            deleteContact();
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // and continue editing the pet.
+            if (dialog != null) {
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    private void deleteContact() {
+        if(mCurrentUri!=null){
+            int n=getContentResolver().delete(mCurrentUri,null,null);
+            if(n>-1){
+                Toast.makeText(this, getString(R.string.editor_delete_contact_successful),
+                        Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, getString(R.string.editor_delete_contact_failed),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.editor_options,menu);
@@ -103,6 +150,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if (mCurrentUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.more_editing_options);
+            menuItem.setVisible(false);
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 
