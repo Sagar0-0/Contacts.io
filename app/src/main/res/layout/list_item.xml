@@ -1,70 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:orientation="vertical"
-    android:padding="15dp">
+    android:layout_width="match_parent"
+    android:padding="12dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="23dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/purple_500"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/purple_500">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/contact_profile"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/ic_profile"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
-                android:id="@+id/contact_profile"/>
+                android:layout_margin="18dp"
+                android:src="@drawable/sagar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
+                android:id="@+id/contact_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:layout_toRightOf="@id/contact_profile"
                 android:text="Name goes here"
-                android:id="@+id/contact_name"
-                android:textStyle="bold"
                 android:textSize="24dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/contact_profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
+                android:id="@+id/contact_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:layout_toRightOf="@id/contact_profile"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="20dp"
                 android:text="+91 1234567890"
-                android:id="@+id/contact_number"
-                android:layout_below="@id/contact_name"
                 android:textSize="20dp"
                 android:textStyle="italic"
-                android:layout_marginLeft="10dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/contact_profile" />
 
             <ImageView
+                android:id="@+id/contact_call"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_call"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="30dp"
                 android:clickable="true"
-                android:id="@+id/contact_call"/>
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_call"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
