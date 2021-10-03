@@ -13,17 +13,23 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.example.android.contactsio.data.Contract;
+
+import com.example.android.contactsio.data.Contract.ContactEntry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -54,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         list.setOnItemClickListener((adapterView, view, position, id) -> {
             Intent intent=new Intent(MainActivity.this,EditorActivity.class);
-            Uri currentPetUri= ContentUris.withAppendedId(Contract.ContactEntry.CONTENT_URI,id);
-            intent.setData(currentPetUri);
+            Uri currentContactUri= ContentUris.withAppendedId(ContactEntry.CONTENT_URI,id);
+            intent.setData(currentContactUri);
             startActivity(intent);
         });
 
@@ -66,7 +72,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
 
-
+    private byte[] convertImageToByteArray(ImageView imageView){
+        Bitmap bitmap =( (BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
 
 
 
@@ -80,12 +91,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void insertDummyData() {
 
         ContentValues values = new ContentValues();
-        values.put(Contract.ContactEntry.COLUMN_CONTACT_NAME, "Sagar");
-        values.put(Contract.ContactEntry.COLUMN_CONTACT_NUMBER, "7015248932");
+        values.put(Contract.ContactEntry.COLUMN_CONTACT_NAME, "");
+        values.put(Contract.ContactEntry.COLUMN_CONTACT_NUMBER, "");
 
 
 
-        Uri uri=getContentResolver().insert(Contract.ContactEntry.CONTENT_URI,values);
+        Uri uri=getContentResolver().insert(ContactEntry.CONTENT_URI,values);
         // Show a toast message depending on whether or not the insertion was successful
         if (uri == null) {
             // If the new content URI is null, then there was an error with insertion.
@@ -97,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -119,9 +129,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if(rowsDeleted>-1){
             Toast.makeText(this,"Contacts Deleted Successfully",
                     Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"No contacts to delete",
+                    Toast.LENGTH_SHORT).show();
         }
-        Log.v("CatalogActivity", rowsDeleted + " rows deleted from contact database");
-    }
+     }
+
     private void exitactivitydialog(){
         AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("Do you really want to exit ?");
@@ -244,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Contract.ContactEntry.COLUMN_CONTACT_NUMBER,
                 Contract.ContactEntry.COLUMN_CONTACT_TASK};
         return new CursorLoader(this,
-                Contract.ContactEntry.CONTENT_URI,
+                ContactEntry.CONTENT_URI,
                 projection,
                 null,
                 null,

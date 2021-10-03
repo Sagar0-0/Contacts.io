@@ -12,7 +12,7 @@ public class Contract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
-    public Contract() {
+    private Contract() {
     }
 
     /**
@@ -67,12 +67,15 @@ public class Contract {
         public final static String COLUMN_CONTACT_NUMBER="number";
 
 
+
         /**
          * Task for the contact.
          *
          * Type: TEXT
          */
         public final static String COLUMN_CONTACT_TASK="task";
+
+        public final static String COLUMN_CONTACT_PROFILE_PIC="pics";
 
 
 

@@ -1,14 +1,20 @@
 <resources>
 
+
+    <!-- Toast message in editor when new contact has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_contact_successful">Contact saved</string>
+
+    <!-- Toast message in editor when new pet has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_contact_failed">Error with saving contact</string>
     <!-- Toast message in editor when current contact was successfully deleted [CHAR LIMIT=NONE] -->
     <string name="editor_delete_contact_successful">Contact deleted</string>
 
-    <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
+    <!-- Toast message in editor when current contact has failed to be deleted [CHAR LIMIT=NONE] -->
     <string name="editor_delete_contact_failed">Error with deleting contact</string>
 
     <string name="app_name">Contacts.io</string>
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
-    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="unsaved_changes_dialog_msg">Discard this information and quit editing?</string>
 
     <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
     <string name="discard">Discard</string>

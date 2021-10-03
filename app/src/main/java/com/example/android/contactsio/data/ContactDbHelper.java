@@ -1,6 +1,7 @@
 package com.example.android.contactsio.data;
 
 import android.content.Context;
+import com.example.android.contactsio.data.Contract.ContactEntry;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,11 +32,12 @@ public class ContactDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a String that contains the SQL statement to create the pets table
-        String SQL_CREATE_CONTACTS_TABLE =  "CREATE TABLE " + Contract.ContactEntry.TABLE_NAME + " ("
-                + Contract.ContactEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Contract.ContactEntry.COLUMN_CONTACT_NAME + " TEXT NOT NULL, "
-                + Contract.ContactEntry.COLUMN_CONTACT_NUMBER + " TEXT NOT NULL, "
-                + Contract.ContactEntry.COLUMN_CONTACT_TASK + " TEXT);";
+        String SQL_CREATE_CONTACTS_TABLE =  "CREATE TABLE " + ContactEntry.TABLE_NAME + " ("
+                + ContactEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ContactEntry.COLUMN_CONTACT_NAME + " TEXT , "
+                + ContactEntry.COLUMN_CONTACT_NUMBER + " TEXT , "
+                + ContactEntry.COLUMN_CONTACT_TASK + " TEXT, "
+                + ContactEntry.COLUMN_CONTACT_PROFILE_PIC+ " BLOB);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_CONTACTS_TABLE);
