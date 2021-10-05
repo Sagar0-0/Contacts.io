@@ -50,6 +50,7 @@
                             android:minWidth="100dp"
                             android:textSize="24sp"
                             android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/profile_editor_view" />
@@ -132,9 +133,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
+                            android:gravity="top"
                             android:hint="Write something in here..."
                             android:linksClickable="true"
+                            android:minLines="7"
+                            android:textAlignment="gravity"
+                            android:textColor="@android:color/white"
                             android:textSize="23dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/task_title" />
