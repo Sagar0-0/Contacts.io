@@ -79,6 +79,22 @@ public class Contract {
 
 
 
+        public static boolean isValidNumber(String number) {
+            if(number.length()<10)return false;
+
+            boolean isDigit=true;
+            for (int i = 0; i < number.length(); i++) {
+                if (number.charAt(i) >= '0' && number.charAt(i) <= '9') {
+                    isDigit=true;
+                }
+                else {
+                    isDigit=false;
+                    break;
+                }
+            }
+            return isDigit;
+        }
+
 
     }
 }

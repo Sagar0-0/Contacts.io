@@ -2,9 +2,11 @@ package com.example.android.contactsio;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.core.content.PermissionChecker;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -15,8 +17,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,9 +29,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.android.contactsio.data.Contract;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+
 
 import java.io.ByteArrayOutputStream;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 @SuppressLint("ClickableViewAccessibility")
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -35,6 +43,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private Uri mCurrentUri;
     private EditText nameEdit,numberEdit,taskEdit;
+    private CircleImageView circleImageView;
+    private FloatingActionButton fab;
 
     private boolean mHasChanged = false;
 
@@ -46,19 +56,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         };
     }
 
+    private String contactNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
+        circleImageView=findViewById(R.id.profile_editor_view);
         nameEdit=findViewById(R.id.name_edittext);
         numberEdit=findViewById(R.id.number_edittext);
         taskEdit=findViewById(R.id.task_edittext);
+        fab=findViewById(R.id.fab_img_input);
 
+        fab.setOnTouchListener(mTouchListener);
         nameEdit.setOnTouchListener(mTouchListener);
         numberEdit.setOnTouchListener(mTouchListener);
         taskEdit.setOnTouchListener(mTouchListener);
-
 
         Intent intent=getIntent();
         mCurrentUri=intent.getData();
@@ -70,6 +84,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             LoaderManager.getInstance(this).initLoader(0,null,this);
         }
 
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
     }
 
 
@@ -88,9 +111,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
 
 
+    private Bitmap convertByteArrayToBitmap(byte[] bytes){
+        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+    }
 
-
-    private byte[] convertImageToByteArray(ImageView imageView){
+    private byte[] convertImageToByteArray(CircleImageView imageView){
         Bitmap bitmap =( (BitmapDrawable) imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
@@ -102,7 +127,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String numberString=numberEdit.getText().toString().trim();
         String taskString=taskEdit.getText().toString().trim();
 
-        /*TODO sanity check for input*/
+        if(!ContactEntry.isValidNumber(numberString)){
+            Toast.makeText(this, "Please Enter a valid 10 digit mobile Number" ,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(nameString.length()==0){
+            Toast.makeText(this, "Please enter a name" ,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ContentValues contentValues=new ContentValues();
         contentValues.put(ContactEntry.COLUMN_CONTACT_NAME,nameString);
@@ -156,20 +190,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         alertDialog.show();
     }
     private void deleteContact() {
-        // Only perform the delete if this is an existing pet.
         if (mCurrentUri != null) {
-            // Call the ContentResolver to delete the pet at the given content URI.
-            // Pass in null for the selection and selection args because the mCurrentPetUri
-            // content URI already identifies the pet that we want.
             int rowsDeleted = getContentResolver().delete(mCurrentUri, null, null);
-
-            // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
-                // If no rows were deleted, then there was an error with the delete.
                 Toast.makeText(this, getString(R.string.editor_delete_contact_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                // Otherwise, the delete was successful and we can display a toast.
                 Toast.makeText(this, getString(R.string.editor_delete_contact_successful),
                         Toast.LENGTH_SHORT).show();
             }
@@ -294,6 +320,30 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.call_this_contact:
+                if(!ContactEntry.isValidNumber(contactNumber)){
+                    Toast.makeText(this, "No valid mobile number is saved!!" ,
+                            Toast.LENGTH_SHORT).show();
+                }else{
+//                    call intent
+                }
+                return true;
+            case R.id.share_contact:
+                if(!ContactEntry.isValidNumber(contactNumber)){
+                    Toast.makeText(this, "No valid mobile number is saved!!" ,
+                            Toast.LENGTH_SHORT).show();
+                }else{
+//                    share contact
+                }
+                return true;
+            case R.id.message_this_contact:
+                if(!ContactEntry.isValidNumber(contactNumber)){
+                    Toast.makeText(this, "No valid mobile number is saved!!" ,
+                            Toast.LENGTH_SHORT).show();
+                }else{
+//                    sms intent
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -343,12 +393,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         if(data.moveToFirst()){
             String contactName=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NAME));
-            String contactNumber=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NUMBER));
+            contactNumber=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NUMBER));
             String contactTask=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_TASK));
 
             nameEdit.setText(contactName);
             numberEdit.setText(contactNumber);
             taskEdit.setText(contactTask);
+
+            data.close();
         }
 
     }

@@ -37,7 +37,7 @@ public class ContactDbHelper extends SQLiteOpenHelper {
                 + ContactEntry.COLUMN_CONTACT_NAME + " TEXT , "
                 + ContactEntry.COLUMN_CONTACT_NUMBER + " TEXT , "
                 + ContactEntry.COLUMN_CONTACT_TASK + " TEXT, "
-                + ContactEntry.COLUMN_CONTACT_PROFILE_PIC+ " BLOB);";
+                + ContactEntry.COLUMN_CONTACT_PROFILE_PIC + " BLOB);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_CONTACTS_TABLE);

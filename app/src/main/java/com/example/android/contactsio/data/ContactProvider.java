@@ -145,8 +145,6 @@ public class ContactProvider extends ContentProvider {
      * for that specific row in the database.
      */
     private Uri insertContact(Uri uri, ContentValues values) {
-        /**TODO sanity check */
-
 
         SQLiteDatabase db=mDbHelper.getWritableDatabase();
 
@@ -208,9 +206,6 @@ public class ContactProvider extends ContentProvider {
      * Return the number of rows that were successfully updated.
      */
     private int updateContact(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        /**TODO sanity check*/
-
-
         SQLiteDatabase db=mDbHelper.getWritableDatabase();
         int rows=db.update(Contract.ContactEntry.TABLE_NAME,values,selection,selectionArgs);
 

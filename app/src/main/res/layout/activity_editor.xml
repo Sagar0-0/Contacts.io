@@ -28,26 +28,43 @@
                     android:paddingEnd="20dp"
                     android:layout_height="match_parent">
 
+
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profile_editor_view"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
-                            android:layout_marginTop="25dp"
+                            android:layout_marginTop="36dp"
                             android:src="@drawable/sagar"
+                            app:civ_border_width="5dp"
+                            app:civ_border_color="#ffffff"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fab_img_input"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:borderWidth="2dp"
+                            android:textAlignment="center"
+                            android:tooltipText="Add Profile"
+                            app:layout_constraintBottom_toBottomOf="@+id/profile_editor_view"
+                            app:layout_constraintEnd_toEndOf="@+id/profile_editor_view" />
 
                         <EditText
                             android:id="@+id/name_edittext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
                             android:layout_marginTop="20dp"
+                            android:layout_marginBottom="10dp"
                             android:ellipsize="end"
+                            android:maxWidth="280dp"
+                            android:minWidth="10dp"
                             android:hint="Name"
                             android:inputType="textCapWords"
                             android:maxLines="1"
-                            android:minWidth="100dp"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,8 +95,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Contact No. :"
-                            android:textSize="20sp"
-                            android:layout_marginStart="8dp"
+                            android:textSize="19sp"
+                            android:layout_marginStart="7dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -88,8 +105,9 @@
                             android:id="@+id/number_edittext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="12dp"
-                            android:hint="1234567890"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:hint="0123456789"
                             android:inputType="phone"
                             android:maxLength="10"
                             android:maxLines="1"
@@ -137,6 +155,7 @@
                             android:hint="Write something in here..."
                             android:linksClickable="true"
                             android:minLines="7"
+                            android:background="@null"
                             android:textAlignment="gravity"
                             android:textColor="@android:color/white"
                             android:textSize="23dp"

@@ -12,7 +12,7 @@
     <!-- Toast message in editor when current contact has failed to be deleted [CHAR LIMIT=NONE] -->
     <string name="editor_delete_contact_failed">Error with deleting contact</string>
 
-    <string name="app_name">Contacts.io</string>
+    <string name="app_name">Contacts.IO</string>
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Discard this information and quit editing?</string>
 
