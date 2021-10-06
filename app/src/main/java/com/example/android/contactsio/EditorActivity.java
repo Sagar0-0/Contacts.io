@@ -1,5 +1,8 @@
 package com.example.android.contactsio;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -29,15 +32,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.Intrinsics;
 
-@SuppressLint("ClickableViewAccessibility")
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -58,6 +65,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private String contactNumber;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,30 +93,45 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
 
 
+
+//        getting activity result and setting image to circleImageView
+        ActivityResultLauncher<Intent> launcher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Uri uri = result.getData().getData();
+                        // Use the uri to load the image
+                        circleImageView.setImageURI(uri);
+                    } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+                        // Use ImagePicker.Companion.getError(result.getData()) to show an error
+                        ImagePicker.Companion.getError(result.getData());
+                    }
+                });
+
+//      on click to image from gallery or camera
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ImagePicker.Companion.with(EditorActivity.this)
+                        .crop()
+                        .cropOval()
+                        .maxResultSize(512, 512, true)
+                        .createIntentFromDialog((Function1) (new Function1() {
+                            public Object invoke(Object var1) {
+                                this.invoke((Intent) var1);
+                                return Unit.INSTANCE;
+                            }
+
+                            public final void invoke(@NotNull Intent it) {
+                                Intrinsics.checkNotNullParameter(it, "it");
+                                launcher.launch(it);
+                            }
+                        }));
 
             }
         });
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private Bitmap convertByteArrayToBitmap(byte[] bytes){
@@ -400,9 +423,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             numberEdit.setText(contactNumber);
             taskEdit.setText(contactTask);
 
-            data.close();
         }
-
     }
 
     @Override
