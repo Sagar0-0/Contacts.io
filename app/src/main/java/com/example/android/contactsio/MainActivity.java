@@ -72,12 +72,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
 
-    private byte[] convertImageToByteArray(ImageView imageView){
-        Bitmap bitmap =( (BitmapDrawable) imageView.getDrawable()).getBitmap();
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
-    }
 
 
 
@@ -91,8 +85,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void insertDummyData() {
 
         ContentValues values = new ContentValues();
-        values.put(Contract.ContactEntry.COLUMN_CONTACT_NAME, "");
-        values.put(Contract.ContactEntry.COLUMN_CONTACT_NUMBER, "");
+        values.put(ContactEntry.COLUMN_CONTACT_NAME, "");
+        values.put(ContactEntry.COLUMN_CONTACT_NUMBER, "");
+        values.put(ContactEntry.COLUMN_CONTACT_PROFILE_PIC,"");
 
 
 
@@ -257,10 +252,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         String[] projection = {
-                Contract.ContactEntry._ID,
-                Contract.ContactEntry.COLUMN_CONTACT_NAME,
-                Contract.ContactEntry.COLUMN_CONTACT_NUMBER,
-                Contract.ContactEntry.COLUMN_CONTACT_TASK};
+                ContactEntry._ID,
+                ContactEntry.COLUMN_CONTACT_NAME,
+                ContactEntry.COLUMN_CONTACT_NUMBER,
+                ContactEntry.COLUMN_CONTACT_TASK,
+                ContactEntry.COLUMN_CONTACT_PROFILE_PIC};
         return new CursorLoader(this,
                 ContactEntry.CONTENT_URI,
                 projection,

@@ -1,8 +1,16 @@
 package com.example.android.contactsio.data;
 
 import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.widget.ImageView;
+
+import java.io.ByteArrayOutputStream;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Contract {
 
@@ -93,6 +101,19 @@ public class Contract {
                 }
             }
             return isDigit;
+        }
+
+
+
+        public static Bitmap convertByteArrayToBitmap(byte[] bytes){
+            return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        }
+
+        public static byte[] convertImageToByteArray(ImageView imageView){
+            Bitmap bitmap =( (BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
         }
 
 

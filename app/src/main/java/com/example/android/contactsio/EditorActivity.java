@@ -134,21 +134,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
 
-    private Bitmap convertByteArrayToBitmap(byte[] bytes){
-        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-    }
-
-    private byte[] convertImageToByteArray(CircleImageView imageView){
-        Bitmap bitmap =( (BitmapDrawable) imageView.getDrawable()).getBitmap();
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
-    }
 
     private void saveContact(){
         String nameString=nameEdit.getText().toString().trim();
         String numberString=numberEdit.getText().toString().trim();
         String taskString=taskEdit.getText().toString().trim();
+        byte[] imageBytes=ContactEntry.convertImageToByteArray(circleImageView);
 
         if(!ContactEntry.isValidNumber(numberString)){
             Toast.makeText(this, "Please Enter a valid 10 digit mobile Number" ,
@@ -165,6 +156,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         contentValues.put(ContactEntry.COLUMN_CONTACT_NAME,nameString);
         contentValues.put(ContactEntry.COLUMN_CONTACT_NUMBER,numberString);
         contentValues.put(ContactEntry.COLUMN_CONTACT_TASK,taskString);
+        contentValues.put(ContactEntry.COLUMN_CONTACT_PROFILE_PIC,imageBytes);
 
         if(mCurrentUri==null){
             Uri newUri=getContentResolver().insert(ContactEntry.CONTENT_URI,contentValues);
@@ -400,7 +392,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ContactEntry._ID,
                 ContactEntry.COLUMN_CONTACT_NAME,
                 ContactEntry.COLUMN_CONTACT_NUMBER,
-                ContactEntry.COLUMN_CONTACT_TASK};
+                ContactEntry.COLUMN_CONTACT_TASK,
+                ContactEntry.COLUMN_CONTACT_PROFILE_PIC};
         return new CursorLoader(this,
                 mCurrentUri,
                 projection,
@@ -418,7 +411,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             String contactName=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NAME));
             contactNumber=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NUMBER));
             String contactTask=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_TASK));
+            byte[] imagebytes=data.getBlob(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_PROFILE_PIC));
+            Bitmap imageBitmap=ContactEntry.convertByteArrayToBitmap(imagebytes);
 
+            if(imagebytes.length==1){
+                circleImageView.setImageResource(R.drawable.ic_profile);
+            }else{
+                circleImageView.setImageBitmap(imageBitmap);
+            }
             nameEdit.setText(contactName);
             numberEdit.setText(contactNumber);
             taskEdit.setText(contactTask);
@@ -431,5 +431,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         nameEdit.setText(null);
         numberEdit.setText(null);
         taskEdit.setText(null);
+        circleImageView.setImageBitmap(null);
     }
 }
