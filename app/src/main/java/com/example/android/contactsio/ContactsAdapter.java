@@ -36,7 +36,14 @@ public class ContactsAdapter extends CursorAdapter {
         String contactname=cursor.getString(cursor.getColumnIndexOrThrow(Contract.ContactEntry.COLUMN_CONTACT_NAME));
         String contactnumber=cursor.getString(cursor.getColumnIndexOrThrow(Contract.ContactEntry.COLUMN_CONTACT_NUMBER));
         byte[] imagebytes=cursor.getBlob(cursor.getColumnIndexOrThrow(Contract.ContactEntry.COLUMN_CONTACT_PROFILE_PIC));
-        Bitmap imageBitmap= Contract.ContactEntry.convertByteArrayToBitmap(imagebytes);
+
+        if(imagebytes==null){
+            profile.setImageResource(R.drawable.ic_profile);
+        }else{
+            Bitmap imageBitmap= Contract.ContactEntry.convertByteArrayToBitmap(imagebytes);
+            profile.setImageBitmap(imageBitmap);
+        }
+
 
         if(TextUtils.isEmpty(contactname)){
             contactname="--Name--";
@@ -44,11 +51,7 @@ public class ContactsAdapter extends CursorAdapter {
         if(TextUtils.isEmpty(contactnumber)){
             contactnumber="xxxxxxxxxx";
         }
-        if(imagebytes.length==1){
-            profile.setImageResource(R.drawable.ic_profile);
-        }else{
-            profile.setImageBitmap(imageBitmap);
-        }
+
         name.setText(contactname);
         num.setText("+91" + contactnumber);
     }

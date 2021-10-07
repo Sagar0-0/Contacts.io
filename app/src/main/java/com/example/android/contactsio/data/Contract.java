@@ -6,7 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.view.View;
 import android.widget.ImageView;
+
+import com.example.android.contactsio.R;
 
 import java.io.ByteArrayOutputStream;
 
@@ -115,7 +118,6 @@ public class Contract {
             bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
             return byteArrayOutputStream.toByteArray();
         }
-
 
     }
 }

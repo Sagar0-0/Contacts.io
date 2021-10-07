@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ContentValues values = new ContentValues();
         values.put(ContactEntry.COLUMN_CONTACT_NAME, "");
         values.put(ContactEntry.COLUMN_CONTACT_NUMBER, "");
-        values.put(ContactEntry.COLUMN_CONTACT_PROFILE_PIC,"");
 
 
 

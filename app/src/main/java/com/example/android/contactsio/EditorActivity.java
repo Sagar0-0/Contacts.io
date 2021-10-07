@@ -64,6 +64,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private String contactNumber;
+    private boolean imageSetted;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -101,6 +102,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Uri uri = result.getData().getData();
                         // Use the uri to load the image
                         circleImageView.setImageURI(uri);
+                        imageSetted=true;
                     } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
                         // Use ImagePicker.Companion.getError(result.getData()) to show an error
                         ImagePicker.Companion.getError(result.getData());
@@ -139,7 +141,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String nameString=nameEdit.getText().toString().trim();
         String numberString=numberEdit.getText().toString().trim();
         String taskString=taskEdit.getText().toString().trim();
-        byte[] imageBytes=ContactEntry.convertImageToByteArray(circleImageView);
+
 
         if(!ContactEntry.isValidNumber(numberString)){
             Toast.makeText(this, "Please Enter a valid 10 digit mobile Number" ,
@@ -156,7 +158,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         contentValues.put(ContactEntry.COLUMN_CONTACT_NAME,nameString);
         contentValues.put(ContactEntry.COLUMN_CONTACT_NUMBER,numberString);
         contentValues.put(ContactEntry.COLUMN_CONTACT_TASK,taskString);
-        contentValues.put(ContactEntry.COLUMN_CONTACT_PROFILE_PIC,imageBytes);
+
+//      if there is any image setted by user then make if content value and save to sqlite db
+        if(imageSetted==true){
+            byte[] imageBytes=ContactEntry.convertImageToByteArray(circleImageView);
+            contentValues.put(ContactEntry.COLUMN_CONTACT_PROFILE_PIC,imageBytes);
+        }
+
+
+
 
         if(mCurrentUri==null){
             Uri newUri=getContentResolver().insert(ContactEntry.CONTENT_URI,contentValues);
@@ -412,11 +422,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             contactNumber=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NUMBER));
             String contactTask=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_TASK));
             byte[] imagebytes=data.getBlob(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_PROFILE_PIC));
-            Bitmap imageBitmap=ContactEntry.convertByteArrayToBitmap(imagebytes);
 
-            if(imagebytes.length==1){
+
+            if(imagebytes==null){
                 circleImageView.setImageResource(R.drawable.ic_profile);
             }else{
+                Bitmap imageBitmap=ContactEntry.convertByteArrayToBitmap(imagebytes);
                 circleImageView.setImageBitmap(imageBitmap);
             }
             nameEdit.setText(contactName);
