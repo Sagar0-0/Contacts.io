@@ -19,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/purple_500">
+            android:background="@color/blue">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/contact_profile"
@@ -27,8 +27,8 @@
                 android:layout_height="66dp"
                 android:layout_margin="18dp"
                 app:civ_border_color="@color/white"
-                app:civ_border_width="4dp"
-                android:src="@drawable/sagar"
+                app:civ_border_width="2dp"
+                android:src="@drawable/ic_profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>

@@ -159,8 +159,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         contentValues.put(ContactEntry.COLUMN_CONTACT_NUMBER,numberString);
         contentValues.put(ContactEntry.COLUMN_CONTACT_TASK,taskString);
 
-//      if there is any image setted by user then make if content value and save to sqlite db
-        if(imageSetted==true){
+//      if there is any image setted by user then make if content value and save to sqlite db.
+        if(imageSetted){
             byte[] imageBytes=ContactEntry.convertImageToByteArray(circleImageView);
             contentValues.put(ContactEntry.COLUMN_CONTACT_PROFILE_PIC,imageBytes);
         }
