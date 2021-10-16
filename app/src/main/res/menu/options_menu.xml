@@ -12,7 +12,7 @@
                 android:title="Delete all contacts"
                 android:icon="@drawable/ic_delete"/>
             <item android:id="@+id/share_app"
-                android:title="Share Contacts.io"
+                android:title="Share Contacts.IO"
                 android:icon="@drawable/ic_share"/>
             <item android:id="@+id/reach_us"
                 android:title="Reach us"

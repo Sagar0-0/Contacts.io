@@ -375,25 +375,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private void smsContact() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("sms:"));
-        intent.setType("vnd.android-dir/mms-sms");
-        /*TODO message nhi horha enter*/
-        intent.putExtra(Intent.EXTRA_TEXT, "Here's a contact i saved on Contacts.IO \ud83e\udd29 \nName: "+contactName+"\nNumber:"+contactNumber);
-        intent.putExtra("address", "+91"+contactNumber);
+        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms","+91"+contactNumber,null));
+        intent.putExtra("sms_body", "Here's a contact i saved on Contacts.IO \ud83e\udd29 \nName: "+contactName+"\nNumber:"+contactNumber);
         startActivity(intent);
-
     }
 
     private void callContact() {
-        Intent intent=new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+contactNumber));
+        Intent intent=new Intent(Intent.ACTION_DIAL,Uri.parse("tel:+91"+contactNumber));
         startActivity(intent);
     }
 
     private void shareContact() {
         Intent intent=new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        String msg="Here's a contact i saved on Contacts.IO \ud83e\udd29 \nName: "+contactName+"\nNumber:"+contactNumber;
+        String msg="Checkout this contact i saved on Contacts.IO \ud83e\udd29 \nName: "+contactName+"\nNumber: +91"+contactNumber;
         intent.putExtra(Intent.EXTRA_TEXT,msg);
         startActivity(Intent.createChooser(intent,"ShareVia"));
     }
