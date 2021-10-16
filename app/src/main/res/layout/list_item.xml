@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
-        app:cardCornerRadius="23dp"
+        app:cardCornerRadius="21dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +23,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/contact_profile"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_margin="18dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="14dp"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
                 android:src="@drawable/ic_profile"
@@ -38,12 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="14dp"
+                android:maxWidth="180dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Name goes here"
-                android:textSize="24dp"
+                android:text="Name goes the name that someone can add "
+                android:textSize="22dp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@id/contact_profile"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,23 +54,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="19dp"
                 android:text="+91 1234567890"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/contact_profile" />
 
             <ImageView
+                android:background="@android:color/transparent"
                 android:id="@+id/contact_call"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:clickable="true"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/ic_call"
+                app:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

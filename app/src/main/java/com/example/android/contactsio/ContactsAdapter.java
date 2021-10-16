@@ -1,13 +1,18 @@
 package com.example.android.contactsio;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cursoradapter.widget.CursorAdapter;
 
@@ -32,6 +37,7 @@ public class ContactsAdapter extends CursorAdapter {
         TextView name=view.findViewById(R.id.contact_name);
         TextView num=view.findViewById(R.id.contact_number);
         CircleImageView profile=view.findViewById(R.id.contact_profile);
+        ImageView callButton=view.findViewById(R.id.contact_call);
 
         String contactname=cursor.getString(cursor.getColumnIndexOrThrow(Contract.ContactEntry.COLUMN_CONTACT_NAME));
         String contactnumber=cursor.getString(cursor.getColumnIndexOrThrow(Contract.ContactEntry.COLUMN_CONTACT_NUMBER));
@@ -44,6 +50,15 @@ public class ContactsAdapter extends CursorAdapter {
             profile.setImageBitmap(imageBitmap);
         }
 
+        String finalContactnumber = contactnumber;
+        callButton.setOnClickListener(v -> {
+            if(TextUtils.isEmpty(finalContactnumber)){
+                Toast.makeText(context,"No Valid number found",Toast.LENGTH_SHORT).show();
+            }else{
+                Intent intent=new Intent(Intent.ACTION_DIAL,Uri.parse("tel:+91"+ finalContactnumber));
+                context.startActivity(intent);
+            }
+        });
 
         if(TextUtils.isEmpty(contactname)){
             contactname="--Name--";

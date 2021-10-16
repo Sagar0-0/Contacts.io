@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#292828"
+    android:theme="@style/EditorItems"
     tools:context=".EditorActivity">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -20,13 +22,14 @@
             app:cardElevation="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@color/purple_200"
+                    android:layout_height="match_parent"
+                    android:background="@color/recyclerItem"
                     android:padding="15dp"
                     android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:layout_height="match_parent">
+                    android:paddingEnd="20dp">
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -35,9 +38,8 @@
                             android:layout_height="130dp"
                             android:layout_marginTop="25dp"
                             android:src="@drawable/ic_profile"
-                            android:scaleType="centerCrop"
-                            app:civ_border_width="2dp"
                             app:civ_border_color="@color/white"
+                            app:civ_border_width="2dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -46,9 +48,8 @@
                             android:id="@+id/fab_img_input"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:borderWidth="2dp"
-                            android:textAlignment="center"
                             android:tooltipText="Add Profile"
+                            app:borderWidth="2dp"
                             app:layout_constraintBottom_toBottomOf="@+id/profile_editor_view"
                             app:layout_constraintEnd_toEndOf="@+id/profile_editor_view" />
 
@@ -56,15 +57,15 @@
                             android:id="@+id/name_edittext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="25dp"
-                            android:paddingRight="25dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="5dp"
                             android:ellipsize="end"
-                            android:maxWidth="280dp"
                             android:hint="Name"
                             android:inputType="textCapWords"
+                            android:maxWidth="280dp"
                             android:maxLines="1"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +87,7 @@
             app:layout_constraintEnd_toEndOf="parent">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@color/purple_500"
+                    android:background="@color/recyclerItem"
                     android:padding="10dp"
                     android:layout_height="match_parent">
 
@@ -133,7 +134,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/teal_700"
+                    android:background="@color/recyclerItem"
                     android:padding="20dp">
 
                         <TextView
@@ -157,7 +158,6 @@
                             android:minLines="7"
                             android:background="@null"
                             android:textAlignment="gravity"
-                            android:textColor="@android:color/white"
                             android:textSize="23dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

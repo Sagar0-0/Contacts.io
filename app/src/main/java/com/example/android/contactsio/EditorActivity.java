@@ -64,6 +64,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private String contactNumber;
+    private String contactName;
     private boolean imageSetted;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -350,7 +351,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     Toast.makeText(this, "No valid mobile number is saved!!" ,
                             Toast.LENGTH_SHORT).show();
                 }else{
-//                    call intent
+                    callContact();
                 }
                 return true;
             case R.id.share_contact:
@@ -358,7 +359,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     Toast.makeText(this, "No valid mobile number is saved!!" ,
                             Toast.LENGTH_SHORT).show();
                 }else{
-//                    share contact
+                    shareContact();
                 }
                 return true;
             case R.id.message_this_contact:
@@ -366,33 +367,36 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     Toast.makeText(this, "No valid mobile number is saved!!" ,
                             Toast.LENGTH_SHORT).show();
                 }else{
-//                    sms intent
+                    smsContact();
                 }
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void smsContact() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("sms:"));
+        intent.setType("vnd.android-dir/mms-sms");
+        /*TODO message nhi horha enter*/
+        intent.putExtra(Intent.EXTRA_TEXT, "Here's a contact i saved on Contacts.IO \ud83e\udd29 \nName: "+contactName+"\nNumber:"+contactNumber);
+        intent.putExtra("address", "+91"+contactNumber);
+        startActivity(intent);
 
+    }
 
+    private void callContact() {
+        Intent intent=new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+contactNumber));
+        startActivity(intent);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private void shareContact() {
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String msg="Here's a contact i saved on Contacts.IO \ud83e\udd29 \nName: "+contactName+"\nNumber:"+contactNumber;
+        intent.putExtra(Intent.EXTRA_TEXT,msg);
+        startActivity(Intent.createChooser(intent,"ShareVia"));
+    }
 
 
     @NonNull
@@ -418,7 +422,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             return;
         }
         if(data.moveToFirst()){
-            String contactName=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NAME));
+            contactName=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NAME));
             contactNumber=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_NUMBER));
             String contactTask=data.getString(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_TASK));
             byte[] imagebytes=data.getBlob(data.getColumnIndexOrThrow(ContactEntry.COLUMN_CONTACT_PROFILE_PIC));
