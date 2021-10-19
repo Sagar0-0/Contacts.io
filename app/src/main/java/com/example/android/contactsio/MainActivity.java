@@ -210,6 +210,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Intent instaIntent=new Intent(Intent.ACTION_VIEW, Uri.parse(insta));
                 startActivity(instaIntent);
                 break;
+            case R.id.share_app:
+                Intent shareIntent=new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                String link="https://drive.google.com/file/d/1pVvKywhTSpDFF64S-2KnZ0Hf7Qiza8s4/view?usp=sharing";
+                shareIntent.putExtra(Intent.EXTRA_TEXT,"Download this amazing application to save your contacts: \n"+link);
+                startActivity(shareIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
