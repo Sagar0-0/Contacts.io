@@ -51,7 +51,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private Uri mCurrentUri;
     private EditText nameEdit,numberEdit,taskEdit;
     private CircleImageView circleImageView;
-    private FloatingActionButton fab;
 
     private boolean mHasChanged = false;
 
@@ -77,9 +76,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         nameEdit=findViewById(R.id.name_edittext);
         numberEdit=findViewById(R.id.number_edittext);
         taskEdit=findViewById(R.id.task_edittext);
-        fab=findViewById(R.id.fab_img_input);
 
-        fab.setOnTouchListener(mTouchListener);
+        circleImageView.setOnTouchListener(mTouchListener);
         nameEdit.setOnTouchListener(mTouchListener);
         numberEdit.setOnTouchListener(mTouchListener);
         taskEdit.setOnTouchListener(mTouchListener);
@@ -111,7 +109,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 });
 
 //      on click to image from gallery or camera
-        fab.setOnClickListener(new View.OnClickListener() {
+        circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImagePicker.Companion.with(EditorActivity.this)
@@ -348,7 +346,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             case R.id.call_this_contact:
                 if(!ContactEntry.isValidNumber(contactNumber)){
-                    Toast.makeText(this, "No valid mobile number is saved!!" ,
+                    Toast.makeText(this, "No valid contact is saved!!" ,
                             Toast.LENGTH_SHORT).show();
                 }else{
                     callContact();
@@ -356,7 +354,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             case R.id.share_contact:
                 if(!ContactEntry.isValidNumber(contactNumber)){
-                    Toast.makeText(this, "No valid mobile number is saved!!" ,
+                    Toast.makeText(this, "No valid contact is saved!!" ,
                             Toast.LENGTH_SHORT).show();
                 }else{
                     shareContact();
@@ -364,7 +362,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             case R.id.message_this_contact:
                 if(!ContactEntry.isValidNumber(contactNumber)){
-                    Toast.makeText(this, "No valid mobile number is saved!!" ,
+                    Toast.makeText(this, "No valid contact is saved!!" ,
                             Toast.LENGTH_SHORT).show();
                 }else{
                     smsContact();
@@ -376,7 +374,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private void smsContact() {
         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms","+91"+contactNumber,null));
-        intent.putExtra("sms_body", "Here's a contact i saved on Contacts.IO \ud83e\udd29 \nName: "+contactName+"\nNumber:"+contactNumber);
+        intent.putExtra("sms_body", "");
         startActivity(intent);
     }
 
@@ -392,7 +390,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         intent.putExtra(Intent.EXTRA_TEXT,msg);
         startActivity(Intent.createChooser(intent,"ShareVia"));
     }
-
 
     @NonNull
     @Override

@@ -7,7 +7,7 @@
         <menu>
             <item android:id="@+id/dummy_data"
                 android:title="Add Dummy Contact"
-                android:icon="@drawable/ic_profile"/>
+                android:icon="@drawable/ic_dummy_contact"/>
             <item android:id="@+id/delete_all_contacts"
                 android:title="Delete all contacts"
                 android:icon="@drawable/ic_delete"/>

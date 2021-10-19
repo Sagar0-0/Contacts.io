@@ -7,11 +7,11 @@
     android:background="#292828"
     android:theme="@style/EditorItems"
     tools:context=".EditorActivity">
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-
+        
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_card"
             android:layout_width="match_parent"
@@ -44,16 +44,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/fab_img_input"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:tooltipText="Add Profile"
-                            app:borderWidth="2dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/profile_editor_view"
-                            app:layout_constraintEnd_toEndOf="@+id/profile_editor_view" />
-
                         <EditText
+                            android:autofillHints="name"
                             android:id="@+id/name_edittext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -61,6 +53,7 @@
                             android:layout_marginBottom="5dp"
                             android:ellipsize="end"
                             android:hint="Name"
+                            android:backgroundTint="@color/white"
                             android:inputType="textCapWords"
                             android:maxWidth="280dp"
                             android:maxLines="1"
@@ -103,6 +96,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <EditText
+                            android:backgroundTint="@color/white"
                             android:id="@+id/number_edittext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
